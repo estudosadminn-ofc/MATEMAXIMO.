@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemaximo - 8º B | Gincana de Matemática</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0A1128',
+                        brandNavy: '#081026',
+                        brandCard: '#0F1C3F',
+                        brandBlue: '#00509D',
+                        brandLightBlue: '#0077B6',
+                        brandGold: '#FFC300',
+                        brandGoldHover: '#F2A900',
+                        techCyan: '#00F0FF',
+                        techPurple: '#9D00FF',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 195, 0, 0.35), inset 0 0 15px rgba(255, 195, 0, 0.15); }
+            50% { box-shadow: 0 0 60px rgba(255, 195, 0, 0.7), inset 0 0 30px rgba(255, 195, 0, 0.3); }
+        }
+
+        @keyframes techGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), inset 0 0 25px rgba(157, 0, 255, 0.25); }
+            50% { box-shadow: 0 0 80px rgba(0, 240, 255, 0.8), inset 0 0 40px rgba(157, 0, 255, 0.5); }
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-16px) rotate(2deg); }
+        }
+
+        @keyframes bgGradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes mathFloat {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-35px) rotate(20deg) scale(1.15); opacity: 0.5; }
+            100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.2; }
+        }
+
+        @keyframes shineEffect {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        .glow-gold { animation: pulseGlow 4s infinite ease-in-out; }
+        .tech-glow-box { animation: techGlow 4s infinite ease-in-out; }
+        .float-element { animation: floatAnimation 5s infinite ease-in-out; }
+
+        .math-symbol-1 { animation: mathFloat 6s infinite ease-in-out; }
+        .math-symbol-2 { animation: mathFloat 8s infinite ease-in-out 1s; }
+        .math-symbol-3 { animation: mathFloat 7s infinite ease-in-out 2s; }
+        .math-symbol-4 { animation: mathFloat 9s infinite ease-in-out 0.5s; }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFC300 0%, #FFE58F 50%, #F2A900 100%);
+            background-size: 200% 200%;
+            animation: bgGradientShift 4s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tech-gradient-text {
+            background: linear-gradient(135deg, #00F0FF 0%, #9D00FF 50%, #FFC300 100%);
+            background-size: 200% 200%;
+            animation: bgGradientShift 4s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hover-effect {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-hover-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+            transition: none;
+        }
+
+        .card-hover-effect:hover::after {
+            animation: shineEffect 0.7s ease-in-out;
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 30px 40px -12px rgba(0, 80, 157, 0.6), 0 0 30px rgba(255, 195, 0, 0.4);
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0A1128; }
+        ::-webkit-scrollbar-thumb { background: #00509D; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FFC300; }
+    </style>
+</head>
+<body class="bg-brandDark text-white font-sans antialiased selection:bg-brandGold selection:text-brandDark overflow-x-hidden">
+
+    <!-- SÍMBOLOS MATEMÁTICOS DE FUNDO -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <span class="math-symbol-1 absolute top-[10%] left-[3%] font-display font-black text-6xl text-brandBlue/25">π</span>
+        <span class="math-symbol-2 absolute top-[30%] right-[5%] font-display font-black text-7xl text-brandGold/20">∑</span>
+        <span class="math-symbol-3 absolute top-[60%] left-[5%] font-display font-black text-6xl text-brandBlue/25">√x</span>
+        <span class="math-symbol-4 absolute top-[80%] right-[8%] font-display font-black text-8xl text-brandGold/15">∞</span>
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-brandDark/90 backdrop-blur-md border-b border-brandGold/30 transition-all duration-300 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#inicio" class="flex items-center gap-3 group">
+                <div class="bg-brandBlue text-brandGold font-display font-black px-3.5 py-1.5 rounded-xl border border-brandGold text-lg tracking-wider group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(255,195,0,0.7)] transition-all">
+                    8º B
+                </div>
+                <span class="font-display font-black text-2xl tracking-wider text-white group-hover:text-brandGold transition-colors">
+                    MATEMAXIMO
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-semibold text-sm">
+                <a href="#inicio" class="hover:text-brandGold transition-colors relative py-1 hover:scale-105 transition-transform">Início</a>
+                <a href="#historia" class="hover:text-brandGold transition-colors relative py-1 hover:scale-105 transition-transform">Nossa História</a>
+                <a href="#atracoes" class="hover:text-brandGold transition-colors relative py-1 hover:scale-105 transition-transform">Barracas</a>
+                <a href="#tecnologia" class="text-techCyan hover:text-brandGold transition-colors relative py-1 font-bold hover:scale-105 transition-transform">⚡ Área Tech</a>
+                <a href="#localizacao" class="hover:text-brandGold transition-colors relative py-1 hover:scale-105 transition-transform">Guia da Torcida</a>
+            </nav>
+
+            <a href="#localizacao" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-brandGold via-yellow-400 to-brandGoldHover text-brandDark font-display font-bold px-6 py-2.5 rounded-full shadow-lg shadow-brandGold/35 hover:shadow-brandGold/70 hover:scale-105 transition-all text-sm">
+                <i class="fa-solid fa-flag-checkered"></i>
+                <span>Junte-se à Torcida</span>
+            </a>
+
+            <button id="mobileMenuBtn" class="md:hidden text-2xl text-brandGold focus:outline-none hover:rotate-90 transition-transform" aria-label="Abrir Menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-brandNavy border-b border-brandGold/20 px-6 py-6 flex flex-col gap-4 font-semibold backdrop-blur-lg">
+            <a href="#inicio" class="mobile-link text-lg hover:text-brandGold">Início</a>
+            <a href="#historia" class="mobile-link text-lg hover:text-brandGold">Nossa História</a>
+            <a href="#atracoes" class="mobile-link text-lg hover:text-brandGold">Barracas</a>
+            <a href="#tecnologia" class="mobile-link text-lg text-techCyan font-bold">⚡ Área Tech</a>
+            <a href="#localizacao" class="mobile-link text-lg hover:text-brandGold">Guia da Torcida</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-radial from-brandBlue/30 via-brandDark to-brandDark z-10">
+        <div class="absolute top-1/4 left-10 w-80 h-80 bg-brandBlue/25 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-brandGold/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-brandGold/10 border border-brandGold/50 px-4 py-1.5 rounded-full text-brandGold font-semibold text-xs md:text-sm tracking-wide uppercase shadow-[0_0_20px_rgba(255,195,0,0.2)]">
+                        <i class="fa-solid fa-trophy animate-bounce"></i> Gincana de Matemática • CMT XXXI
+                    </div>
+
+                    <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-tight">
+                        EQUIPE <br>
+                        <span class="gold-gradient-text drop-shadow-lg">MATEMAXIMO</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        A FORÇA DO <strong class="text-white">8º B</strong>! A garra, o raciocínio afiado e a união da nossa turma prontos para fazer história! Venha torcer com a gente e vivenciar a melhor experiência da gincana.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-4 text-left">
+                        <div class="bg-brandCard/90 border border-brandGold/30 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-md min-w-[200px] shadow-lg hover:border-brandGold transition-colors">
+                            <div class="w-12 h-12 bg-brandBlue text-brandGold rounded-xl flex items-center justify-center text-xl shrink-0 shadow-inner">
+                                <i class="fa-solid fa-calendar-day"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-semibold">Data do Evento</p>
+                                <p class="font-display font-bold text-white text-sm sm:text-base">29 de Outubro</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-brandCard/90 border border-brandGold/30 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-md min-w-[200px] shadow-lg hover:border-brandGold transition-colors">
+                            <div class="w-12 h-12 bg-brandBlue text-brandGold rounded-xl flex items-center justify-center text-xl shrink-0 shadow-inner">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-semibold">Horário</p>
+                                <p class="font-display font-bold text-white text-sm sm:text-base">A partir das 14:30h</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#tecnologia" class="bg-gradient-to-r from-techCyan via-brandBlue to-techPurple text-white font-display font-bold px-8 py-4 rounded-full shadow-lg shadow-techCyan/30 hover:shadow-techCyan/60 hover:-translate-y-1.5 transition-all text-center flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-bolt animate-bounce"></i>
+                            <span>Ir para a Área Tech ⚡</span>
+                        </a>
+                        <a href="#atracoes" class="bg-white/5 hover:bg-white/10 border border-white/20 text-white font-semibold px-8 py-4 rounded-full transition-all text-center hover:border-brandGold/50">
+                            Ver Barracas
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center relative">
+                    <div class="relative w-full max-w-md float-element">
+                        <div class="absolute inset-0 bg-gradient-to-b from-brandGold/30 to-brandBlue/50 rounded-3xl blur-2xl transform scale-95"></div>
+                        <div class="relative bg-brandCard/95 border-2 border-brandGold rounded-3xl p-6 shadow-2xl backdrop-blur-md overflow-hidden text-center glow-gold">
+                            <div class="absolute top-3 right-3 bg-brandGold text-brandDark font-display font-black text-xs px-3 py-1 rounded-full uppercase z-10 shadow-md">
+                                Mascote Oficial
+                            </div>
+                            <img 
+                                src="https://eligible-amethyst-8wyy44wr.edgeone.dev/file.png" 
+                                alt="Mascote Leopardo MATEMAXIMO 8º B" 
+                                class="w-full h-auto max-h-[520px] object-contain mx-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] transition-transform duration-500 hover:scale-110"
+                                onerror="this.onerror=null; this.src='mascote.png';"
+                            >
+                            <div class="mt-4 pt-3 border-t border-white/10">
+                                <h3 class="font-display font-black text-xl text-brandGold uppercase tracking-wide">
+                                    LEOPARDO MATEMAXIMO
+                                </h3>
+                                <p class="text-xs text-slate-300 font-medium">
+                                    Símbolo da agilidade, foco e força da turma do 8º B!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTADOR REGRESSIVO -->
+    <section class="bg-brandNavy border-y border-brandGold/30 py-8 relative z-20 shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-6">
+                <p class="font-display font-bold text-brandGold text-sm tracking-widest uppercase flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-stopwatch animate-spin"></i> Contagem Regressiva para a Grande Vitória
+                </p>
+            </div>
+            
+            <div id="countdownGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto text-center">
+                <div class="bg-brandCard/80 border border-brandGold/30 p-4 rounded-2xl shadow-inner hover:border-brandGold transition-colors">
+                    <span id="cd-days" class="font-display font-black text-4xl sm:text-5xl text-brandGold block">00</span>
+                    <span class="text-xs font-semibold text-slate-400 uppercase">Dias</span>
+                </div>
+                <div class="bg-brandCard/80 border border-brandGold/30 p-4 rounded-2xl shadow-inner hover:border-brandGold transition-colors">
+                    <span id="cd-hours" class="font-display font-black text-4xl sm:text-5xl text-brandGold block">00</span>
+                    <span class="text-xs font-semibold text-slate-400 uppercase">Horas</span>
+                </div>
+                <div class="bg-brandCard/80 border border-brandGold/30 p-4 rounded-2xl shadow-inner hover:border-brandGold transition-colors">
+                    <span id="cd-minutes" class="font-display font-black text-4xl sm:text-5xl text-brandGold block">00</span>
+                    <span class="text-xs font-semibold text-slate-400 uppercase">Minutos</span>
+                </div>
+                <div class="bg-brandCard/80 border border-brandGold/30 p-4 rounded-2xl shadow-inner hover:border-brandGold transition-colors">
+                    <span id="cd-seconds" class="font-display font-black text-4xl sm:text-5xl text-brandGold block">00</span>
+                    <span class="text-xs font-semibold text-slate-400 uppercase">Segundos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO HISTÓRIA DA EQUIPE -->
+    <section id="historia" class="py-20 relative bg-brandDark z-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brandGold font-display font-bold text-sm tracking-widest uppercase">Trajetória Real da Turma</span>
+                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
+                    A HISTÓRIA DA EQUIPE MATEMAXIMO
+                </h2>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-brandBlue via-brandGold to-brandBlue mx-auto mt-4 rounded-full shadow-[0_0_10px_#FFC300]"></div>
+            </div>
+
+            <div class="relative border-l-2 border-brandBlue/50 md:border-l-0 md:before:absolute md:before:left-1/2 md:before:top-0 md:before:bottom-0 md:before:w-1 md:before:bg-gradient-to-b md:before:from-brandBlue md:before:via-brandGold md:before:to-brandBlue space-y-12">
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="flex items-center absolute -left-[17px] md:left-1/2 md:-translate-x-1/2 z-10">
+                        <div class="w-8 h-8 rounded-full bg-brandGold text-brandDark flex items-center justify-center font-display font-black text-sm ring-4 ring-brandDark shadow-lg group-hover:scale-125 transition-transform">1</div>
+                    </div>
+                    <div class="ml-8 md:ml-0 md:w-[45%] bg-brandCard border border-white/10 p-6 rounded-2xl shadow-xl card-hover-effect">
+                        <span class="text-xs font-bold text-brandGold uppercase">Início do Ano Letivo</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-2">Primeiro Spoiler</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Logo após o início do ano letivo, nossa professora comentou sobre a incrível gincana que fez com outra turma, acendendo a curiosidade de toda a sala!</p>
+                    </div>
+                    <div class="hidden md:block md:w-[45%]"></div>
+                </div>
+
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="flex items-center absolute -left-[17px] md:left-1/2 md:-translate-x-1/2 z-10">
+                        <div class="w-8 h-8 rounded-full bg-brandGold text-brandDark flex items-center justify-center font-display font-black text-sm ring-4 ring-brandDark shadow-lg group-hover:scale-125 transition-transform">2</div>
+                    </div>
+                    <div class="hidden md:block md:w-[45%]"></div>
+                    <div class="ml-8 md:ml-0 md:w-[45%] bg-brandCard border border-white/10 p-6 rounded-2xl shadow-xl card-hover-effect">
+                        <span class="text-xs font-bold text-brandGold uppercase">Meses de Espera</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-2">Expectativa nas Alturas</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">A turma passou meses se preparando, imaginando como seriam as provas e sonhando alto com a competição.</p>
+                    </div>
+                </div>
+
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="flex items-center absolute -left-[17px] md:left-1/2 md:-translate-x-1/2 z-10">
+                        <div class="w-8 h-8 rounded-full bg-brandGold text-brandDark flex items-center justify-center font-display font-black text-sm ring-4 ring-brandDark shadow-lg group-hover:scale-125 transition-transform">3</div>
+                    </div>
+                    <div class="ml-8 md:ml-0 md:w-[45%] bg-brandCard border border-white/10 p-6 rounded-2xl shadow-xl card-hover-effect">
+                        <span class="text-xs font-bold text-brandGold uppercase">20 de Agosto</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-2">Divulgação Oficial & Liderança</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Anúncio oficial revelado! Nosso líder <strong class="text-brandGold">João Lucas</strong>, junto com Kethellen, Luis, André e toda a equipe, assumiram a frente para organizar tudo com excelência.</p>
+                    </div>
+                    <div class="hidden md:block md:w-[45%]"></div>
+                </div>
+
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="flex items-center absolute -left-[17px] md:left-1/2 md:-translate-x-1/2 z-10">
+                        <div class="w-8 h-8 rounded-full bg-brandGold text-brandDark flex items-center justify-center font-display font-black text-sm ring-4 ring-brandDark shadow-lg group-hover:scale-125 transition-transform">4</div>
+                    </div>
+                    <div class="hidden md:block md:w-[45%]"></div>
+                    <div class="ml-8 md:ml-0 md:w-[45%] bg-brandCard border border-white/10 p-6 rounded-2xl shadow-xl card-hover-effect">
+                        <span class="text-xs font-bold text-brandGold uppercase">Preparação Total</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-2">União do 8º B</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Alunos unidos para entregar um evento espetacular, inovador e inesquecível no dia 29 de outubro!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BARRACAS INTERATIVAS & ESTRUTURA DA EQUIPE -->
+    <section id="atracoes" class="py-20 bg-brandNavy relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brandGold font-display font-bold text-sm tracking-widest uppercase">Setores Oficiais</span>
+                <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">
+                    BARRACAS & LIDERANÇAS DA EQUIPE
+                </h2>
+                <p class="text-slate-300 text-base mt-2">
+                    Conheça os setores organizados pelos líderes do 8º B para a gincana!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- BARRACA ENGENHARIA -->
+                <div class="bg-brandCard border border-brandGold/30 rounded-3xl p-8 hover:border-brandGold transition-all shadow-xl flex flex-col justify-between card-hover-effect relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue/20 rounded-bl-full pointer-events-none group-hover:scale-125 transition-all"></div>
+                    <div>
+                        <div class="w-16 h-16 bg-brandBlue text-brandGold rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border border-brandGold/20 group-hover:rotate-6 transition-transform">
+                            <i class="fa-solid fa-helmet-safety"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brandGold uppercase tracking-wider">Líder: Kethellen</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-4">Barraca de Engenharia</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Estruturas, maquetes, cálculos exatos e construções inteligentes sob a liderança de <strong class="text-brandGold">Kethellen</strong>. Venha conferir projetos estruturais impressionantes!
+                        </p>
+                    </div>
+                    <div class="bg-brandDark/60 border border-white/10 p-4 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-compass-drafting text-brandGold text-xl"></i>
+                        <span class="text-xs text-slate-200 font-semibold">Precisão e projetos criativos!</span>
+                    </div>
+                </div>
+
+                <!-- BARRACA ESTRATÉGIA (LIDERADA PELO ANDRÉ) -->
+                <div class="bg-brandCard border border-brandGold/30 rounded-3xl p-8 hover:border-brandGold transition-all shadow-xl flex flex-col justify-between card-hover-effect relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brandGold/20 rounded-bl-full pointer-events-none group-hover:scale-125 transition-all"></div>
+                    <div>
+                        <div class="w-16 h-16 bg-brandGold text-brandDark rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border border-brandGold group-hover:rotate-6 transition-transform">
+                            <i class="fa-solid fa-chess"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brandGold uppercase tracking-wider">Líder: André</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-4">Barraca de Estratégia</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Jogos de raciocínio lógico, táticas de tabuleiro e enigmas matemáticos elaborados sob a liderança de <strong class="text-brandGold">André</strong> para testar o intelecto!
+                        </p>
+                    </div>
+                    <div class="bg-brandDark/60 border border-white/10 p-4 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-puzzle-piece text-brandGold text-xl"></i>
+                        <span class="text-xs text-slate-200 font-semibold">Desafios lógicos eletrizantes!</span>
+                    </div>
+                </div>
+
+                <!-- SETOR FINANCEIRO -->
+                <div class="bg-brandCard border border-brandGold/30 rounded-3xl p-8 hover:border-brandGold transition-all shadow-xl flex flex-col justify-between card-hover-effect relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue/20 rounded-bl-full pointer-events-none group-hover:scale-125 transition-all"></div>
+                    <div>
+                        <div class="w-16 h-16 bg-brandBlue text-brandGold rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-md border border-brandGold/20 group-hover:rotate-6 transition-transform">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brandGold uppercase tracking-wider">Líder: Luis</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1 mb-4">Setor Financeiro</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Controle de recursos, planejamento de caixa e gestão organizada sob a liderança de <strong class="text-brandGold">Luis</strong>, garantindo o suporte completo da equipe.
+                        </p>
+                    </div>
+                    <div class="bg-brandDark/60 border border-white/10 p-4 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-chart-line text-brandGold text-xl"></i>
+                        <span class="text-xs text-slate-200 font-semibold">Gestão e organização financeira!</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ⚡ ÁREA TECNOLÓGICA (DESTAQUE MÁXIMO COM JOÃO LUCAS) ⚡ -->
+    <section id="tecnologia" class="py-24 bg-gradient-to-b from-brandNavy via-brandCard to-brandDark relative z-20 overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-techCyan/10 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+        <div class="absolute bottom-0 right-10 w-96 h-96 bg-techPurple/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <div class="inline-flex items-center gap-2 bg-techCyan/10 border border-techCyan text-techCyan px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(0,240,255,0.3)] animate-pulse">
+                    <i class="fa-solid fa-microchip"></i> A Principal Atração da Gincana
+                </div>
+
+                <h2 class="font-display font-black text-3xl sm:text-5xl text-white tracking-tight">
+                    ⚡ ÁREA TECH <span class="tech-gradient-text">MATEMAXIMO</span>
+                </h2>
+
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                    Preparada com maestria pelo líder <strong class="text-techCyan font-bold">João Lucas</strong> e sua equipe! Se você curte jogos, desafios dinâmicos, computadores, celulares e muita energia, este é o espaço definitivo para você dominar.
+                </p>
+                <div class="w-32 h-1.5 bg-gradient-to-r from-techCyan via-brandGold to-techPurple mx-auto rounded-full shadow-[0_0_15px_#00F0FF]"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-brandCard/90 border-2 border-techCyan/40 rounded-3xl p-8 hover:border-techCyan transition-all shadow-2xl flex flex-col justify-between card-hover-effect relative overflow-hidden group">
+                    <div>
+                        <div class="w-16 h-16 bg-gradient-to-tr from-techCyan to-brandBlue text-brandDark rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-[0_0_20px_rgba(0,240,255,0.4)] group-hover:rotate-12 transition-transform">
+                            <i class="fa-solid fa-gamepad text-white"></i>
+                        </div>
+                        <span class="text-xs font-bold text-techCyan uppercase tracking-widest">Games & Competição</span>
+                        <h3 class="font-display font-bold text-2xl text-white mt-1 mb-4">Jogos & Dinâmicas Tech</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Desafie seus amigos em plataformas de jogos digitais interativos e dinâmicas de raciocínio rápido programadas especialmente para testar sua agilidade mental!
+                        </p>
+                    </div>
+                    <div class="bg-brandDark/80 border border-techCyan/30 p-4 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-trophy text-techCyan text-xl animate-bounce"></i>
+                        <span class="text-xs text-slate-200 font-semibold">Ranking ao vivo e prêmios tech!</span>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-b from-brandCard via-brandNavy to-brandCard border-2 border-brandGold rounded-3xl p-8 hover:border-techCyan transition-all shadow-2xl flex flex-col justify-between card-hover-effect relative overflow-hidden tech-glow-box group">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-techCyan to-techPurple text-brandDark font-display font-black text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider shadow-md">
+                        🔥 O Coração da Área
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 bg-gradient-to-tr from-brandGold via-techCyan to-techPurple text-brandDark rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-[0_0_25px_rgba(255,195,0,0.5)] group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-laptop-code text-brandDark"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brandGold uppercase tracking-widest">Hardware & Mobile</span>
+                        <h3 class="font-display font-bold text-2xl text-white mt-1 mb-4">PCs & Celulares Interativos</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Uma estrutura alucinante com estações equipadas com computadores e celulares conectados a desafios de tirar o fôlego. Venha testar aplicativos matemáticos e games exclusivos!
+                        </p>
+                    </div>
+                    <div class="bg-brandDark/80 border border-brandGold/40 p-4 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-mobile-screen-button text-brandGold text-xl"></i>
+                        <span class="text-xs text-slate-200 font-semibold">Estações interativas livres para o público!</span>
+                    </div>
+                </div>
+
+                <div class="bg-brandCard/90 border-2 border-techPurple/40 rounded-3xl p-8 hover:border-techPurple transition-all shadow-2xl flex flex-col justify-between card-hover-effect relative overflow-hidden group">
+                    <div>
+                        <div class="w-16 h-16 bg-gradient-to-tr from-techPurple to-brandBlue text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-[0_0_20px_rgba(157,0,255,0.4)] group-hover:-rotate-12 transition-transform">
+                            <i class="fa-solid fa-bolt text-techCyan"></i>
+                        </div>
+                        <span class="text-xs font-bold text-techPurple uppercase tracking-widest">Alta Voltagem</span>
+                        <h3 class="font-display font-bold text-2xl text-white mt-1 mb-4">Energia & Imersão Total</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Iluminação especial, som imersivo e muita interatividade para manter a adrenalina lá no alto durante todo o evento. O espaço mais hypado da gincana!
+                        </p>
+                    </div>
+                    <div class="bg-brandDark/80 border border-techPurple/30 p-4 rounded-xl flex items-center gap-3">
+                        <i class="fa-solid fa-fire text-techPurple text-xl"></i>
+                        <span class="text-xs text-slate-200 font-semibold">Atmosfera futurista e contagiante!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESTAQUE PARA O JOÃO LUCAS APLICADO AQUI -->
+            <div class="bg-brandCard/95 border-2 border-techCyan/60 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-md shadow-[0_0_30px_rgba(0,240,255,0.15)]">
+                <div class="flex items-center gap-5 text-center md:text-left flex-col md:flex-row">
+                    <div class="w-16 h-16 bg-techCyan/20 border border-techCyan text-techCyan rounded-2xl flex items-center justify-center text-3xl shrink-0 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                        <i class="fa-solid fa-user-astronaut animate-pulse"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-display font-black text-xl text-white flex items-center justify-center md:justify-start gap-2">
+                            <span>Liderança de João Lucas & Equipe Tech</span>
+                            <span class="bg-techCyan text-brandDark text-xs px-2.5 py-0.5 rounded-full font-bold">8º B</span>
+                        </h4>
+                        <p class="text-slate-300 text-sm mt-1">
+                            Planejado com inovação e dedicação total pelo líder João Lucas para garantir que a nossa turma brilhe!
+                        </p>
+                    </div>
+                </div>
+                <a href="#localizacao" class="bg-gradient-to-r from-techCyan to-brandBlue text-brandDark font-display font-black px-8 py-3.5 rounded-2xl hover:shadow-[0_0_25px_rgba(0,240,255,0.8)] hover:scale-105 transition-all text-sm whitespace-nowrap">
+                    <i class="fa-solid fa-compass"></i> Visitar na Quadra
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUIA DA TORCIDA & LOCALIZAÇÃO -->
+    <section id="localizacao" class="py-20 bg-brandDark relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-brandCard via-brandCard to-brandBlue/30 border-2 border-brandGold rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden glow-gold">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2 bg-brandGold/20 text-brandGold px-4 py-1 rounded-full text-xs font-bold uppercase border border-brandGold/40 shadow-sm">
+                            <i class="fa-solid fa-compass"></i> Guia Oficial da Plateia
+                        </div>
+
+                        <h2 class="font-display font-black text-3xl sm:text-4xl text-white">
+                            ONDE TORCER PELO <span class="gold-gradient-text">MATEMAXIMO</span>
+                        </h2>
+
+                        <p class="text-slate-300 text-base leading-relaxed">
+                            Preparamos tudo para te receber com muito entusiasmo! Confira as orientações de local e acesse o mapa oficial abaixo para chegar com facilidade:
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-brandBlue text-brandGold rounded-xl flex items-center justify-center text-lg shrink-0 mt-1 shadow-md">
+                                    <i class="fa-solid fa-school"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">Localização do Evento</h4>
+                                    <p class="text-slate-300 text-sm">Colégio Militar Tiradentes – Unidade XXXI (Santa Inês - MA)</p>
+                                    <p class="text-brandGold text-xs font-semibold mt-0.5"><i class="fa-solid fa-map-pin"></i> Endereço: Rua Dr. Edmilson Gonçalves, quadra utilizada pelo Colégio Militar Tiradentes Unidade XXXI</p>
+                                    
+                                    <div class="mt-3">
+                                        <a href="https://maps.app.goo.gl/a4zbkCeu5QpA5pXa9" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-brandBlue hover:bg-brandLightBlue text-white font-semibold text-xs py-2 px-4 rounded-xl border border-brandGold/40 shadow-md hover:scale-105 transition-all">
+                                            <i class="fa-solid fa-map-location-dot text-brandGold"></i>
+                                            <span>Abrir no Google Maps</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-brandGold"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-brandBlue text-brandGold rounded-xl flex items-center justify-center text-lg shrink-0 mt-1 shadow-md">
+                                    <i class="fa-solid fa-chair"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">Setor da Torcida Matemaximo</h4>
+                                    <p class="text-slate-300 text-sm">Ao entrar na quadra do colégio, sente-se no <strong class="text-brandGold font-bold underline">LADO ESQUERDO DA QUADRA</strong>.</p>
+                                    <p class="text-xs text-slate-400 mt-0.5">É lá que toda a torcida do 8º B estará reunida para vibrar junto!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-brandGold/15 border-l-4 border-brandGold p-4 rounded-r-xl text-sm text-slate-200">
+                            <strong class="text-brandGold font-bold block mb-0.5"><i class="fa-solid fa-bell"></i> Lembrete de Horário:</strong>
+                            Esperamos por você no dia <strong>29 de outubro, a partir das 14:30</strong>. Chegue cedo para garantir seu lugar no lado esquerdo!
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-brandDark/80 border border-brandGold/30 p-8 rounded-2xl text-center space-y-6 backdrop-blur-sm shadow-xl">
+                        <div class="w-20 h-20 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 rounded-full flex items-center justify-center text-4xl text-white mx-auto shadow-lg hover:scale-110 transition-transform">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="font-display font-bold text-2xl text-white">Siga Nosso Instagram</h3>
+                            <p class="text-slate-300 text-xs mt-2 leading-relaxed">
+                                Acompanhe os bastidores da equipe, novidades, avisos importantes e os melhores momentos da gincana!
+                            </p>
+                        </div>
+
+                        <!-- LINK DO INSTAGRAM ATUALIZADO -->
+                        <a href="https://www.instagram.com/matemaximo_/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-brandGold via-yellow-400 to-brandGoldHover text-brandDark font-display font-bold py-3.5 px-6 rounded-xl hover:shadow-lg hover:shadow-brandGold/40 hover:scale-[1.02] transition-all">
+                            <span>Acessar Instagram Oficial</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/90 border-t border-white/10 py-12 text-center text-slate-400 text-sm relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div class="flex items-center justify-center gap-3 font-display font-black text-2xl text-white">
+                <span class="bg-brandBlue text-brandGold px-2.5 py-1 rounded-lg text-sm border border-brandGold">8º B</span>
+                <span>MATEMAXIMO</span>
+            </div>
+
+            <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                Gincana de Matemática • Colégio Militar Tiradentes Unidade XXXI (Santa Inês - MA)<br>
+                Projeto desenvolvido com dedicação por toda a turma do 8º B.
+            </p>
+
+            <div class="flex justify-center gap-6 text-xl text-brandGold">
+                <a href="#inicio" class="hover:text-white transition-colors hover:scale-125 transition-transform" title="Início"><i class="fa-solid fa-house"></i></a>
+                <a href="#historia" class="hover:text-white transition-colors hover:scale-125 transition-transform" title="História"><i class="fa-solid fa-book-open"></i></a>
+                <a href="#tecnologia" class="hover:text-techCyan transition-colors hover:scale-125 transition-transform" title="Área Tech"><i class="fa-solid fa-microchip"></i></a>
+                <a href="#localizacao" class="hover:text-white transition-colors hover:scale-125 transition-transform" title="Localização"><i class="fa-solid fa-location-dot"></i></a>
+            </div>
+
+            <div class="pt-6 border-t border-white/5 text-xs text-slate-500">
+                &copy; 2026 Equipe Matemaximo - Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const targetDate = new Date("October 29, 2026 14:30:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+                document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('cd-minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('countdownGrid').innerHTML = `
+                    <div class="col-span-4 bg-brandGold text-brandDark font-display font-black text-xl p-4 rounded-2xl shadow-lg">
+                        É HOJE! A GINCANA MATEMAXIMO COMEÇOU!
+                    </div>
+                `;
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
